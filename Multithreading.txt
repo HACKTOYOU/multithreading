@@ -1,0 +1,31 @@
+Program for Multithreading:
+
+#include<unistd.h>
+#include<stdio.h>
+#include<pthread.h>
+
+void *printhello(void *threadid)			
+{
+int tid;
+tid=(int)threadid;						
+sleep(1);
+printf("hello RCPIT! its thread no %d\n",tid);
+pthread_exit(NULL);					
+}
+
+int main()
+{
+pthread_t threads[5];					
+int rc,i;
+for(i=0;i<5;i++)
+{
+printf("create thread %d \n",i);
+pthread_create(&threads[i],NULL,printhello,(void *)i);
+									
+if(rc<0)
+{
+printf("Error:return value from pthread_create() is %d \n", rc);
+}
+}
+pthread_exit(NULL);
+}
